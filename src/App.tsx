@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.css';
 import { Pagination } from './components/Pagination';
 
@@ -9,7 +9,9 @@ export const App: React.FC = () => {
 
   const total = 42;
 
-  const onePageChange = (page: number) => setCurrentPage(page);
+  const onePageChange = useCallback((page: number) => {
+    setCurrentPage(page);
+  }, []);
 
   const start = (currentPage - 1) * perPage;
   const end = currentPage * perPage > total ? total : currentPage * perPage;
@@ -31,6 +33,7 @@ export const App: React.FC = () => {
             value={perPage}
             onChange={e => {
               setPerPage(Number(e.target.value));
+              setCurrentPage(1);
             }}
           >
             <option value="3">3</option>
